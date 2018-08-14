@@ -3,6 +3,8 @@ const hbs = require('hbs');
 const app = express();
 const fs = require('fs');
 
+const port = process.env.PORT || 3000;
+
 hbs.registerPartials(__dirname + "/views/partials")
 app.set('view engine', 'hbs');
 
@@ -21,12 +23,12 @@ app.use((req,res,next)=>{
     next();
 });
 
-app.use((req,res,next)=>{
-    res.render('maintaince.hbs',{
-        pageTitle: 'Header'
-    });
-    next();
-})
+// app.use((req,res,next)=>{
+//     res.render('maintaince.hbs',{
+//         pageTitle: 'Not in service'
+//     });
+//     next();
+// })
 
 hbs.registerHelper('getCurrentYear',()=>{
  return new Date().getFullYear();   
@@ -52,6 +54,6 @@ app.get('/bad',function(req,res){
     res.send({errorMessage: 'bad route'});
 });
 
-app.listen(3000,function(){
-    console.log('app started');
+app.listen(port,function(){
+    console.log(`app started on ${port}`);
 })
